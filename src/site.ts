@@ -13,9 +13,9 @@ export const STORE_URLS = {
 	googlePlay: '',
 };
 
-// App source repository. Leave empty while it is private; when set, the site shows
-// "open source" mentions and source code links.
-export const SOURCE_URL = '';
+// App source repository (public, GPL-3.0). When set, the site shows "open source"
+// mentions and source code links; set to '' to hide them all.
+export const SOURCE_URL = 'https://github.com/berkecankoc/patilog';
 
 export const GITHUB_PRIVACY_URL = 'https://docs.github.com/site-policy/privacy-policies/github-privacy-statement';
 
@@ -38,9 +38,11 @@ export const ui = {
 		support: 'Support',
 		otherLang: 'Türkçe',
 		mainNav: 'Main',
+		menu: 'Menu',
 		skip: 'Skip to content',
 		tagline: 'Offline pet care tracker',
 		sourceCode: 'Source code',
+		sourceOnGithub: 'Source code on GitHub',
 		theme: { label: 'Theme', system: 'System', light: 'Light', dark: 'Dark' },
 		trademarks:
 			'Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.',
@@ -51,9 +53,11 @@ export const ui = {
 		support: 'Destek',
 		otherLang: 'English',
 		mainNav: 'Ana menü',
+		menu: 'Menü',
 		skip: 'İçeriğe geç',
 		tagline: 'Çevrimdışı evcil hayvan bakım takibi',
 		sourceCode: 'Kaynak kodu',
+		sourceOnGithub: 'GitHub’daki kaynak kodu',
 		theme: { label: 'Tema', system: 'Sistem', light: 'Açık', dark: 'Koyu' },
 		trademarks:
 			'Apple ve Apple logosu, Apple Inc.’in ABD’de ve diğer ülkelerde tescilli ticari markalarıdır. App Store, Apple Inc.’in hizmet markasıdır. Google Play ve Google Play logosu, Google LLC’nin ticari markalarıdır.',
