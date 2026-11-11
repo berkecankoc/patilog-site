@@ -1,0 +1,73 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL, DEVELOPER_NAME, EFFECTIVE_DATE, GITHUB_PRIVACY_URL, formatDate } from '../../site';
+
+const summary = [
+	'Hesap yok, sunucu yok',
+	'Analitik, reklam, takip ya da çökme raporlama yok',
+	'Kayıtlarınız cihazınızdaki yerel bir veritabanında kalır',
+	'Verileriniz satılmaz, kimseyle paylaşılmaz',
+];
+---
+
+<BaseLayout
+	lang="tr"
+	page="privacy"
+	title="Gizlilik Politikası – Patilog"
+	description="Patilog bilgilerinizi nasıl ele alır: hesap yok, sunucu yok, analitik ya da takip yok. Tüm kayıtlar cihazınızda kalır."
+>
+	<article class="prose">
+		<h1>Gizlilik Politikası</h1>
+		<p class="meta">Yürürlük tarihi: <time datetime={EFFECTIVE_DATE}>{formatDate(EFFECTIVE_DATE, 'tr')}</time></p>
+
+		<section class="card summary" aria-labelledby="summary-title">
+			<h2 id="summary-title">Kısaca</h2>
+			<ul class="check-list">
+				{summary.map((item) => <li><Icon name="lucide:circle-check" aria-hidden="true" />{item}</li>)}
+			</ul>
+		</section>
+
+		<p>Bu politika, {DEVELOPER_NAME} tarafından geliştirilen iOS ve Android evcil hayvan bakım takip uygulaması Patilog’un bilgilerinizi nasıl ele aldığını açıklar. Bu web sitesini ve bana gönderdiğiniz e-postaları da kapsar.</p>
+
+		<h2>Hesap yok, sunucu yok</h2>
+		<p>Patilog’u kullanmak için hesap açmanız ya da giriş yapmanız gerekmez; Patilog’a ait bir sunucu da yoktur. Uygulama internet üzerinden hiçbir yerle iletişim kurmaz. Android sürümü internet izni bile istemez.</p>
+
+		<h2>Toplanmayan veriler</h2>
+		<p>Uygulamada analitik, reklam, takip ya da çökme raporlama aracı yoktur; veri toplayan üçüncü taraf yazılım kitleri (SDK) de kullanılmaz. Verileriniz satılmaz, kimseyle paylaşılmaz. Geliştirici olarak verilerinize erişimim yoktur.</p>
+
+		<h2>Cihazınızda saklanan veriler</h2>
+		<ul>
+			<li>Hayvan profilleri, kilo ölçümleri, veteriner ziyaretleri, aşılar, ilaçlar, beslenme planları ve öğün kayıtları gibi girdiğiniz bilgiler cihazınızdaki yerel bir veritabanında tutulur.</li>
+			<li>Bir hayvan için fotoğraf seçtiğinizde, fotoğrafın bir kopyası uygulamanın kendine ait özel depolama alanına kaydedilir.</li>
+			<li>Tema, dil ve bildirim tercihleriniz cihazınızda saklanır.</li>
+		</ul>
+
+		<h2>Fotoğraflar</h2>
+		<p>Patilog, sistemin kendi fotoğraf seçicisini kullanır. Uygulama yalnızca seçtiğiniz fotoğrafa erişebilir; galerinizin tamamına erişim istemez.</p>
+
+		<h2>Bildirimler</h2>
+		<p>Hatırlatıcılar isteğe bağlıdır ve tamamen cihazınızda zamanlanır. Android’de hatırlatıcıların tam vaktinde gelmesi için isteğe bağlı “tam zamanlı alarm” (exact alarm) izni istenebilir. Bu izni vermezseniz hatırlatıcılar tam vaktinde değil, ona yakın bir zamanda gelir.</p>
+
+		<h2>Cihaz yedekleri</h2>
+		<p>Cihaz ayarlarınıza bağlı olarak işletim sisteminin yedekleri (iCloud ya da Google yedeklemesi) Patilog verilerini de içerebilir. Bu yedekler geliştiricinin değil; sizin ve Apple’ın ya da Google’ın kontrolündedir.</p>
+
+		<h2>Verilerin saklanma süresi ve silinmesi</h2>
+		<p>Kayıtlarınız siz silene kadar cihazınızda kalır. Kayıtları ve hayvanları uygulamanın içinden tek tek silebilirsiniz; Patilog’u kaldırdığınızda da cihazdaki tüm verileri silinir. Kendi sistem yedeklerinizdeki kopyalar bundan etkilenmez, bunları iCloud ya da Google yedekleme ayarlarınızdan kaldırabilirsiniz. Uygulama verileriniz bana hiç ulaşmadığı için benim tarafımda saklanan ya da silinmesi gereken bir şey yoktur.</p>
+
+		<h2>Bana yazarsanız</h2>
+		<p>Bana e-posta gönderdiğinizde e-posta adresiniz ve mesajınızda yazdıklarınız bana ulaşır. Bunları yalnızca size cevap vermek için kullanırım ve kimseyle paylaşmam. E-postalar, e-posta hizmet sağlayıcım Google (Gmail) üzerinden işlenir. Yazışmamızı yalnızca size yardımcı olmak için gerektiği sürece saklarım. Silinmesini istediğinizde aynı adrese yazmanız yeterlidir.</p>
+
+		<h2>Bu web sitesi</h2>
+		<p>Bu web sitesi çerez, analitik ya da üçüncü taraf kaynak kullanmaz. Site GitHub Pages üzerinde barındırılır; GitHub, <a href={GITHUB_PRIVACY_URL}>GitHub Gizlilik Bildirimi</a>’nde açıklandığı gibi ziyaretçilerin IP adreslerini güvenlik amacıyla kaydeder. Sitede açık ya da koyu tema seçerseniz bu tercih yalnızca tarayıcınızın yerel depolamasında (localStorage) tutulur ve hiçbir yere gönderilmez.</p>
+
+		<h2>Çocuklar</h2>
+		<p>Patilog, 13 yaşından küçük çocuklara yönelik değildir.</p>
+
+		<h2>Politikadaki değişiklikler</h2>
+		<p>Patilog’a ileride sunucu, hesap ya da senkronizasyon eklenirse bu politika güncellenir ve yürürlük tarihi değişir.</p>
+
+		<h2>İletişim</h2>
+		<p>Bu politikayla ilgili soru ve talepleriniz için: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+	</article>
+</BaseLayout>

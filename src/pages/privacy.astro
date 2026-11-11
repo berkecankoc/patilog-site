@@ -1,0 +1,74 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL, DEVELOPER_NAME, EFFECTIVE_DATE, GITHUB_PRIVACY_URL, formatDate, pageUrl } from '../site';
+
+const summary = [
+	'No account and no servers',
+	'No analytics, ads, tracking or crash reporting',
+	'Your records stay in a local database on your device',
+	'Your data is not sold or shared with anyone',
+];
+---
+
+<BaseLayout
+	lang="en"
+	page="privacy"
+	title="Privacy Policy – Patilog"
+	description="How Patilog handles your information: no account, no servers, no analytics or tracking. All records stay on your device."
+>
+	<article class="prose">
+		<h1>Privacy Policy</h1>
+		<p class="meta">Effective date: <time datetime={EFFECTIVE_DATE}>{formatDate(EFFECTIVE_DATE, 'en')}</time></p>
+		<p lang="tr">Bu politikanın Türkçesi: <a href={pageUrl('tr', 'privacy')} hreflang="tr">Gizlilik Politikası</a></p>
+
+		<section class="card summary" aria-labelledby="summary-title">
+			<h2 id="summary-title">In short</h2>
+			<ul class="check-list">
+				{summary.map((item) => <li><Icon name="lucide:circle-check" aria-hidden="true" />{item}</li>)}
+			</ul>
+		</section>
+
+		<p>This policy explains how Patilog, a pet care tracking app for iOS and Android developed by {DEVELOPER_NAME}, handles your information. It also covers this website and emails you send me.</p>
+
+		<h2>No account, no servers</h2>
+		<p>You don’t need an account or sign-in to use Patilog, and there is no Patilog server. The app does not communicate over the internet. The Android release version doesn’t even request the internet permission.</p>
+
+		<h2>What Patilog does not collect</h2>
+		<p>Patilog contains no analytics, advertising, tracking or crash reporting, and no third-party SDKs that collect data. Your data is not sold or shared with anyone. As the developer, I have no access to your data.</p>
+
+		<h2>Data stored on your device</h2>
+		<ul>
+			<li>The records you enter, such as pet profiles, weight entries, vet visits, vaccinations, medications, feeding plans and meal logs, are kept in a local database on your device.</li>
+			<li>When you choose a photo for a pet, a copy of that photo is saved in the app’s private storage.</li>
+			<li>Your theme, language and notification preferences are stored on your device.</li>
+		</ul>
+
+		<h2>Photos</h2>
+		<p>Patilog uses the system photo picker. The app can access only the photo you select; it does not ask for access to your entire photo library.</p>
+
+		<h2>Notifications</h2>
+		<p>Reminders are optional and are scheduled entirely on your device. On Android, the app may ask for the optional exact alarm permission so reminders arrive on time. If you don’t grant it, reminders arrive at an approximate time instead.</p>
+
+		<h2>Device backups</h2>
+		<p>Depending on your device settings, your operating system’s backups (iCloud or Google backup) may include Patilog’s data. These backups are controlled by you and by Apple or Google, not by the developer.</p>
+
+		<h2>How long data is kept and how to delete it</h2>
+		<p>Your records stay on your device until you delete them. You can delete individual records and pets inside the app, and uninstalling Patilog deletes all of its data from your device. Copies in your own system backups are not affected; you can remove them in your iCloud or Google backup settings. Because I never receive your app data, there is nothing for me to keep or delete on my side.</p>
+
+		<h2>If you contact me</h2>
+		<p>If you email me, I receive your email address and whatever you include in your message. I use them only to reply to you and don’t share them with anyone. Emails are handled by my email provider, Google (Gmail). I keep our conversation only as long as it’s needed to help you. You can ask me at any time to delete it by writing to the same address.</p>
+
+		<h2>This website</h2>
+		<p>This website uses no cookies, analytics or third-party resources. It is hosted on GitHub Pages; GitHub logs visitors’ IP addresses for security purposes, as described in the <a href={GITHUB_PRIVACY_URL}>GitHub Privacy Statement</a>. If you choose a light or dark theme here, that choice is saved only in your browser’s local storage and is never sent anywhere.</p>
+
+		<h2>Children</h2>
+		<p>Patilog is not directed at children under 13.</p>
+
+		<h2>Changes to this policy</h2>
+		<p>If servers, accounts or sync are ever added to Patilog, this policy will be updated and its effective date will change.</p>
+
+		<h2>Contact</h2>
+		<p>Questions or requests about this policy: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+	</article>
+</BaseLayout>
