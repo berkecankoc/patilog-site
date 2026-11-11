@@ -49,6 +49,9 @@ const navPages = ['privacy', 'support'] as const;
 					{navPages.map((p) => (
 						<a href={pageUrl(lang, p)} aria-current={p === page ? 'page' : undefined}>{t[p]}</a>
 					))}
+					{SOURCE_URL && (
+						<a class="icon-link" href={SOURCE_URL} aria-label={t.sourceOnGithub} title={t.sourceOnGithub}><Icon name="simple-icons:github" aria-hidden="true" /></a>
+					)}
 				</nav>
 				<button
 					class="theme-toggle"
@@ -63,10 +66,28 @@ const navPages = ['privacy', 'support'] as const;
 					<Icon name="lucide:sun" class="theme-icon-light" aria-hidden="true" />
 					<Icon name="lucide:moon" class="theme-icon-dark" aria-hidden="true" />
 				</button>
-				<a class="lang-switch" href={pageUrl(otherLang, page)} hreflang={otherLang} lang={otherLang}>
+				<a class="lang-switch" href={pageUrl(otherLang, page)} hreflang={otherLang} lang={otherLang} aria-label={t.otherLang}>
 					<Icon name="lucide:languages" aria-hidden="true" />
-					<span>{t.otherLang}</span>
+					<span class="lang-full">{t.otherLang}</span>
+					<span class="lang-short" aria-hidden="true">{otherLang.toUpperCase()}</span>
 				</a>
+				<details class="mobile-menu">
+					<summary class="menu-toggle">
+						<Icon name="lucide:menu" class="icon-open" aria-hidden="true" />
+						<Icon name="lucide:x" class="icon-close" aria-hidden="true" />
+						<span class="sr-only">{t.menu}</span>
+					</summary>
+					<nav class="menu-panel" aria-label={t.mainNav}>
+						<ul>
+							{navPages.map((p) => (
+								<li><a href={pageUrl(lang, p)} aria-current={p === page ? 'page' : undefined}>{t[p]}</a></li>
+							))}
+							{SOURCE_URL && (
+								<li><a href={SOURCE_URL}><Icon name="simple-icons:github" aria-hidden="true" />{t.sourceOnGithub}</a></li>
+							)}
+						</ul>
+					</nav>
+				</details>
 			</div>
 		</header>
 

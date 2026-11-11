@@ -168,23 +168,15 @@ ul {
 	border-radius: 22%;
 }
 
-/* Narrow screens: brand and language switch share the first row, nav links go below. */
-.header-nav {
-	order: 3;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 0.25rem 1.25rem;
-	width: 100%;
-	font-weight: 600;
+.site-header {
+	position: relative;
 }
 
-@media (min-width: 40rem) {
-	.header-nav {
-		order: 0;
-		width: auto;
-		margin-right: 1rem;
-	}
+.header-nav {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	font-weight: 600;
 }
 
 .header-nav a {
@@ -200,6 +192,141 @@ ul {
 
 .header-nav a[aria-current='page'] {
 	font-weight: 800;
+}
+
+/* Icon-only source code link next to the text links (wide screens). */
+.header-nav .icon-link {
+	display: inline-grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface);
+}
+
+.header-nav .icon-link svg {
+	width: 1.125rem;
+	height: 1.125rem;
+}
+
+.lang-short {
+	display: none;
+}
+
+/* Narrow screens: one row (brand, theme toggle, language code, menu button); the page links and
+   the source link move into a native <details> menu, so no JavaScript is needed. */
+.mobile-menu {
+	display: none;
+}
+
+@media (max-width: 39.99rem) {
+	.header-nav {
+		display: none;
+	}
+
+	/* Short language code (EN/TR) without the icon so the header fits in one row at 320px. */
+	.lang-switch {
+		padding-inline: 0.7rem;
+	}
+
+	.lang-switch svg,
+	.lang-switch .lang-full {
+		display: none;
+	}
+
+	.lang-switch .lang-short {
+		display: inline;
+	}
+
+	.mobile-menu {
+		display: block;
+	}
+}
+
+.menu-toggle {
+	display: grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface);
+	color: var(--text);
+	cursor: pointer;
+	list-style: none;
+}
+
+.menu-toggle::-webkit-details-marker {
+	display: none;
+}
+
+.menu-toggle svg {
+	width: 1.125rem;
+	height: 1.125rem;
+}
+
+.mobile-menu .icon-close,
+.mobile-menu[open] .icon-open {
+	display: none;
+}
+
+.mobile-menu[open] .icon-close {
+	display: block;
+}
+
+.menu-panel {
+	position: absolute;
+	top: 100%;
+	inset-inline: 0;
+	z-index: 20;
+	padding: 0.25rem 1.25rem 0.75rem;
+	border-bottom: 1px solid var(--border);
+	background: var(--bg);
+	box-shadow: var(--shadow);
+}
+
+.menu-panel ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.menu-panel li + li {
+	border-top: 1px solid var(--border);
+}
+
+.menu-panel a {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	padding-block: 0.875rem;
+	color: var(--text);
+	font-size: 1.0625rem;
+	font-weight: 700;
+}
+
+.menu-panel a:hover,
+.menu-panel a[aria-current='page'] {
+	color: var(--link);
+	text-decoration: none;
+}
+
+.menu-panel svg {
+	flex: none;
+	width: 1.125rem;
+	height: 1.125rem;
+	color: var(--muted);
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
 }
 
 .theme-toggle {
