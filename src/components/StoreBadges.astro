@@ -1,0 +1,44 @@
+---
+import { Icon } from 'astro-icon/components';
+import { type Lang, STORE_URLS } from '../site';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+// Custom store buttons (brand glyphs from simple-icons, bundled at build time).
+// The first one is filled, the second outlined.
+const buttons = [
+	{
+		url: STORE_URLS.appStore,
+		icon: 'simple-icons:apple',
+		label: lang === 'tr' ? 'App Store’dan indir' : 'Download on the App Store',
+		variant: 'primary',
+	},
+	{
+		url: STORE_URLS.googlePlay,
+		icon: 'simple-icons:googleplay',
+		label: lang === 'tr' ? 'Google Play’den indir' : 'Download on Google Play',
+		variant: 'secondary',
+	},
+];
+const comingSoon = lang === 'tr' ? 'Çok yakında App Store ve Google Play’de.' : 'Coming soon to the App Store and Google Play.';
+const anyMissing = buttons.some((b) => !b.url);
+---
+
+<div class="store-buttons">
+	<ul>
+		{buttons.map((b) => (
+			<li>
+				{b.url ? (
+					<a class:list={['store-button', b.variant]} href={b.url}><Icon name={b.icon} aria-hidden="true" /><span>{b.label}</span></a>
+				) : (
+					<span class:list={['store-button', b.variant, 'is-soon']}><Icon name={b.icon} aria-hidden="true" /><span>{b.label}</span></span>
+				)}
+			</li>
+		))}
+	</ul>
+	{anyMissing && <p class="store-buttons-note">{comingSoon}</p>}
+</div>

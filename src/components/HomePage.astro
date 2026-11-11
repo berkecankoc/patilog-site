@@ -1,0 +1,151 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StoreBadges from './StoreBadges.astro';
+import { type Lang, SOURCE_URL, pageUrl, ui } from '../site';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+// Only verified facts about the app belong here; keep EN and TR in sync.
+const content = {
+	en: {
+		title: 'Patilog – Offline pet care tracker',
+		description:
+			'Patilog is a free, offline care tracker for dogs, cats, birds and other pets on iOS and Android. No account, no servers: your records stay on your device.',
+		heading: 'Keep track of your pets’ care with Patilog',
+		intro: 'Vaccinations, medications, meals, weight and vet visits in one app. For dogs, cats, birds and other pets, with no internet connection needed.',
+		badges: [
+			{ icon: 'lucide:heart', text: 'Free' },
+			{ icon: 'lucide:smartphone', text: 'iOS & Android' },
+			{ icon: 'lucide:wifi-off', text: 'Works offline' },
+			{ icon: 'lucide:languages', text: 'English & Turkish' },
+			{ icon: 'lucide:sun-moon', text: 'Light & dark theme' },
+		],
+		featuresTitle: 'What you can track',
+		features: [
+			{ icon: 'lucide:paw-print', title: 'Pet profiles', text: 'Save each pet’s name, species, sex, photo and other details.' },
+			{ icon: 'lucide:scale', title: 'Weight history', text: 'Log weights and follow the trend on a chart.' },
+			{ icon: 'lucide:stethoscope', title: 'Vet visits', text: 'Keep a record of each visit to the vet.' },
+			{ icon: 'lucide:syringe', title: 'Vaccinations', text: 'Track vaccinations and plan the next doses.' },
+			{ icon: 'lucide:pill', title: 'Medications', text: 'Set daily or every-few-days schedules and track each dose.' },
+			{ icon: 'lucide:utensils', title: 'Feeding', text: 'Create feeding plans and log how many grams each meal was.' },
+			{ icon: 'lucide:bell', title: 'Reminders', text: 'Get notified when a meal, medication dose or vaccination is due.' },
+			{ icon: 'lucide:layout-grid', title: 'All pets together', text: 'See the records of all your pets side by side.' },
+		],
+		privacyTitle: 'Your data stays on your device',
+		privacyIntro: 'Patilog has no account and no servers. Your records are stored only on your phone.',
+		privacyPoints: [
+			{ icon: 'lucide:user-x', title: 'No account', text: 'No sign-up, no sign-in.' },
+			{ icon: 'lucide:cloud-off', title: 'No internet', text: 'The app doesn’t communicate over the internet.' },
+			{ icon: 'lucide:eye-off', title: 'No tracking', text: 'No analytics, ads or crash reporting.' },
+			{ icon: 'lucide:trash-2', title: 'Removed on uninstall', text: 'Uninstalling the app deletes its data from your device.' },
+		],
+		privacyLink: 'Read the privacy policy',
+		note: 'Patilog is not a substitute for veterinary care or medical advice.',
+		openSource: {
+			badge: 'Open source',
+			text: 'Patilog is open source, so you can check everything on this page in the app’s code.',
+			link: 'View the source code on GitHub',
+		},
+	},
+	tr: {
+		title: 'Patilog – Çevrimdışı evcil hayvan bakım takibi',
+		description:
+			'Patilog; köpek, kedi, kuş ve diğer evcil hayvanların bakımını takip etmek için iOS ve Android’de ücretsiz, çevrimdışı bir uygulama. Hesap ve sunucu yok, kayıtlarınız cihazınızda kalır.',
+		heading: 'Evcil hayvanlarınızın bakımını Patilog ile takip edin',
+		intro: 'Aşılar, ilaçlar, öğünler, kilo ve veteriner ziyaretleri tek uygulamada. Köpek, kedi, kuş ve diğer evcil hayvanlar için; internet bağlantısı gerekmez.',
+		badges: [
+			{ icon: 'lucide:heart', text: 'Ücretsiz' },
+			{ icon: 'lucide:smartphone', text: 'iOS ve Android' },
+			{ icon: 'lucide:wifi-off', text: 'İnternetsiz çalışır' },
+			{ icon: 'lucide:languages', text: 'Türkçe ve İngilizce' },
+			{ icon: 'lucide:sun-moon', text: 'Açık ve koyu tema' },
+		],
+		featuresTitle: 'Neleri takip edebilirsiniz?',
+		features: [
+			{ icon: 'lucide:paw-print', title: 'Hayvan profilleri', text: 'Her hayvanınızın adını, türünü, cinsiyetini, fotoğrafını ve diğer bilgilerini kaydedin.' },
+			{ icon: 'lucide:scale', title: 'Kilo geçmişi', text: 'Kilo ölçümlerini girin, değişimi grafikte görün.' },
+			{ icon: 'lucide:stethoscope', title: 'Veteriner ziyaretleri', text: 'Veterinere yapılan her ziyareti kaydedin.' },
+			{ icon: 'lucide:syringe', title: 'Aşılar', text: 'Yapılan aşıları takip edin, sıradaki dozları planlayın.' },
+			{ icon: 'lucide:pill', title: 'İlaçlar', text: 'Her gün ya da birkaç günde bir verilecek ilaçları planlayın, dozları takip edin.' },
+			{ icon: 'lucide:utensils', title: 'Beslenme', text: 'Beslenme planı oluşturun, her öğünde kaç gram verdiğinizi kaydedin.' },
+			{ icon: 'lucide:bell', title: 'Hatırlatıcılar', text: 'Öğün, ilaç ya da aşı zamanı geldiğinde bildirim alın.' },
+			{ icon: 'lucide:layout-grid', title: 'Tüm hayvanlar bir arada', text: 'Bütün hayvanlarınızın kayıtlarını aynı yerde görün.' },
+		],
+		privacyTitle: 'Verileriniz cihazınızda kalır',
+		privacyIntro: 'Patilog’da hesap ya da sunucu yoktur. Kayıtlarınız yalnızca telefonunuzda saklanır.',
+		privacyPoints: [
+			{ icon: 'lucide:user-x', title: 'Hesap yok', text: 'Kayıt olmanız ya da giriş yapmanız gerekmez.' },
+			{ icon: 'lucide:cloud-off', title: 'İnternet bağlantısı yok', text: 'Uygulama internet üzerinden hiçbir yerle iletişim kurmaz.' },
+			{ icon: 'lucide:eye-off', title: 'Takip yok', text: 'Analitik, reklam ya da çökme raporlama yoktur.' },
+			{ icon: 'lucide:trash-2', title: 'Kaldırınca silinir', text: 'Uygulamayı kaldırdığınızda verileri de cihazdan silinir.' },
+		],
+		privacyLink: 'Gizlilik politikasını okuyun',
+		note: 'Patilog, veteriner muayenesinin ya da tıbbi tavsiyenin yerini tutmaz.',
+		openSource: {
+			badge: 'Açık kaynak',
+			text: 'Patilog açık kaynaklıdır; bu sayfada yazanları uygulamanın kodundan kendiniz doğrulayabilirsiniz.',
+			link: 'Kaynak kodu GitHub’da inceleyin',
+		},
+	},
+}[lang];
+---
+
+<BaseLayout lang={lang} page="home" title={content.title} description={content.description}>
+	<section class="hero container">
+		<h1>{content.heading}</h1>
+		<p class="hero-intro">{content.intro}</p>
+		<StoreBadges lang={lang} />
+		<ul class="badges">
+			{content.badges.map((b) => (
+				<li><Icon name={b.icon} aria-hidden="true" />{b.text}</li>
+			))}
+			{SOURCE_URL && <li><Icon name="lucide:code" aria-hidden="true" />{content.openSource.badge}</li>}
+		</ul>
+		<!-- App screenshots go here once they are provided. -->
+	</section>
+
+	<section class="container section" aria-labelledby="features-title">
+		<h2 id="features-title" class="section-title">{content.featuresTitle}</h2>
+		<ul class="feature-grid">
+			{content.features.map((f) => (
+				<li class="card feature">
+					<span class="icon-badge"><Icon name={f.icon} aria-hidden="true" /></span>
+					<h3>{f.title}</h3>
+					<p>{f.text}</p>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<section class="container section" aria-labelledby="privacy-title">
+		<div class="card privacy-panel">
+			<div class="privacy-head">
+				<span class="icon-badge"><Icon name="lucide:shield-check" aria-hidden="true" /></span>
+				<h2 id="privacy-title">{content.privacyTitle}</h2>
+			</div>
+			<p class="privacy-intro">{content.privacyIntro}</p>
+			<ul class="privacy-points">
+				{content.privacyPoints.map((p) => (
+					<li>
+						<Icon name={p.icon} aria-hidden="true" />
+						<div><strong>{p.title}</strong><span>{p.text}</span></div>
+					</li>
+				))}
+			</ul>
+			{SOURCE_URL && (
+				<p class="open-source"><Icon name="simple-icons:github" aria-hidden="true" /><span>{content.openSource.text} <a href={SOURCE_URL}>{content.openSource.link}</a></span></p>
+			)}
+			<a class="button" href={pageUrl(lang, 'privacy')}>{content.privacyLink}<Icon name="lucide:arrow-right" aria-hidden="true" /></a>
+		</div>
+	</section>
+
+	<div class="container section">
+		<p class="note"><Icon name="lucide:info" aria-hidden="true" />{content.note}</p>
+		<p class="trademarks">{ui[lang].trademarks}</p>
+	</div>
+</BaseLayout>
