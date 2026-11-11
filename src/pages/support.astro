@@ -1,0 +1,62 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL } from '../site';
+---
+
+<BaseLayout
+	lang="en"
+	page="support"
+	title="Support – Patilog"
+	description="Get help with Patilog: contact email and answers about where your data is stored, switching phones, reminders and changing the app language."
+>
+	<article class="prose">
+		<h1>Support</h1>
+		<p class="meta">If you have a question, run into a problem or have a suggestion, get in touch.</p>
+
+		<section class="card summary contact" aria-labelledby="contact-title">
+			<h2 id="contact-title">Contact</h2>
+			<p>Email me and include your device model and what you were trying to do.</p>
+			<a class="button" href={`mailto:${CONTACT_EMAIL}`}><Icon name="lucide:mail" aria-hidden="true" />Send an email</a>
+			<p class="contact-email">{CONTACT_EMAIL}</p>
+		</section>
+
+		<h2>Frequently asked questions</h2>
+		<div class="faq">
+			<details>
+				<summary>Where is my data, and how is it backed up?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<p>All your records live only on your device, in the app’s local database. Patilog has no servers or accounts, so I can’t keep a copy of your data or restore it for you.</p>
+					<p>Depending on your device settings, your phone’s system backup (iCloud on iPhone, Google backup on Android) may include Patilog’s data. Check your device’s backup settings to make sure backups are turned on.</p>
+				</div>
+			</details>
+
+			<details>
+				<summary>What happens when I switch phones?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<p>Because there is no server, your data can move to a new phone only through a device backup and restore. If Patilog’s data is included in your old phone’s backup and you restore that backup on the new phone, your records come with it. If it isn’t, Patilog starts empty on the new phone, and there is no way to recover your data.</p>
+					<p>Before switching, make sure your device backup is turned on and up to date.</p>
+				</div>
+			</details>
+
+			<details>
+				<summary>I’m not getting reminders. What should I do?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<ul>
+						<li>Open Patilog’s Settings screen and check your notification settings.</li>
+						<li>Make sure notifications are allowed for Patilog in your phone’s system settings.</li>
+						<li>On Android, battery optimization can delay or block reminders. Exclude Patilog from battery optimization in your phone’s battery settings. The menu name and location vary by manufacturer.</li>
+						<li>On Android, allow Patilog the “Alarms &amp; reminders” permission so reminders arrive on time. Without it, they arrive at an approximate time.</li>
+					</ul>
+				</div>
+			</details>
+
+			<details>
+				<summary>How do I change the app’s language?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<p>In Patilog, go to Settings → Language. By default, the app uses your device’s language.</p>
+				</div>
+			</details>
+		</div>
+	</article>
+</BaseLayout>

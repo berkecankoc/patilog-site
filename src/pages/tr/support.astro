@@ -1,0 +1,62 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL } from '../../site';
+---
+
+<BaseLayout
+	lang="tr"
+	page="support"
+	title="Destek – Patilog"
+	description="Patilog için yardım: iletişim e-postası; verilerin nerede tutulduğu, telefon değiştirme, hatırlatıcılar ve uygulama dili hakkında sıkça sorulan sorular."
+>
+	<article class="prose">
+		<h1>Destek</h1>
+		<p class="meta">Bir sorunuz, yaşadığınız bir sorun ya da öneriniz varsa bana yazabilirsiniz.</p>
+
+		<section class="card summary contact" aria-labelledby="contact-title">
+			<h2 id="contact-title">İletişim</h2>
+			<p>Cihazınızın modelini ve ne yapmaya çalışırken sorun yaşadığınızı yazarsanız daha hızlı yardımcı olabilirim.</p>
+			<a class="button" href={`mailto:${CONTACT_EMAIL}`}><Icon name="lucide:mail" aria-hidden="true" />E-posta gönder</a>
+			<p class="contact-email">{CONTACT_EMAIL}</p>
+		</section>
+
+		<h2>Sıkça sorulan sorular</h2>
+		<div class="faq">
+			<details>
+				<summary>Verilerim nerede, nasıl yedekleniyor?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<p>Tüm kayıtlarınız yalnızca cihazınızda, uygulamanın yerel veritabanında durur. Patilog’un sunucusu ya da hesap sistemi olmadığı için verilerinizin bir kopyasını tutamam, kaybolursa geri de getiremem.</p>
+					<p>Cihaz ayarlarınıza bağlı olarak telefonunuzun sistem yedeği (iPhone’da iCloud, Android’de Google yedeklemesi) Patilog verilerini de içerebilir. Yedeklemenin açık olduğundan emin olmak için cihazınızın yedekleme ayarlarına bakın.</p>
+				</div>
+			</details>
+
+			<details>
+				<summary>Telefon değiştirirsem ne olur?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<p>Sunucu olmadığı için verileriniz yeni telefona yalnızca cihaz yedeği ve geri yükleme yoluyla taşınabilir. Patilog verileri eski telefonunuzun yedeğinde varsa ve bu yedeği yeni telefona geri yüklerseniz kayıtlarınız da gelir. Yedekte yoksa Patilog yeni telefonda boş açılır ve verilerinizi kurtarmanın bir yolu yoktur.</p>
+					<p>Telefon değiştirmeden önce cihaz yedeğinizin açık ve güncel olduğundan emin olun.</p>
+				</div>
+			</details>
+
+			<details>
+				<summary>Hatırlatıcılar gelmiyor, ne yapmalıyım?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<ul>
+						<li>Patilog’da Ayarlar ekranını açın ve bildirim ayarlarınızı kontrol edin.</li>
+						<li>Telefonunuzun sistem ayarlarında Patilog’un bildirim göndermesine izin verildiğinden emin olun.</li>
+						<li>Android’de pil optimizasyonu hatırlatıcıları geciktirebilir ya da engelleyebilir. Telefonunuzun pil ayarlarından Patilog’u pil optimizasyonunun dışında bırakın. Bu menünün adı ve yeri üreticiye göre değişir.</li>
+						<li>Android’de hatırlatıcıların tam vaktinde gelmesi için Patilog’a “Alarmlar ve hatırlatıcılar” izni verin. Bu izin olmadan hatırlatıcılar yaklaşık bir zamanda gelir.</li>
+					</ul>
+				</div>
+			</details>
+
+			<details>
+				<summary>Uygulamanın dilini nasıl değiştirebilirim?<Icon name="lucide:chevron-down" aria-hidden="true" /></summary>
+				<div class="faq-body">
+					<p>Patilog’da Ayarlar → Dil bölümüne gidin. Uygulama varsayılan olarak cihazınızın dilini kullanır.</p>
+				</div>
+			</details>
+		</div>
+	</article>
+</BaseLayout>
