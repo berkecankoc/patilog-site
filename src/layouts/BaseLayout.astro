@@ -1,0 +1,120 @@
+---
+import '@fontsource-variable/nunito';
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import appIcon from '../assets/app_icon.png';
+import { type Lang, type Page, SOURCE_URL, pageUrl, ui } from '../site';
+
+interface Props {
+	lang: Lang;
+	page: Page;
+	title: string;
+	description: string;
+}
+
+const { lang, page, title, description } = Astro.props;
+const t = ui[lang];
+const otherLang: Lang = lang === 'en' ? 'tr' : 'en';
+const base = import.meta.env.BASE_URL;
+const navPages = ['privacy', 'support'] as const;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="icon" href={`${base}favicon-32.png`} sizes="32x32" type="image/png" />
+		<link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
+		<!-- Applies a saved theme before first paint. The choice lives only in this browser's localStorage. -->
+		<script is:inline>
+			try {
+				const theme = localStorage.getItem('patilog-theme');
+				if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+			} catch {}
+		</script>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">{t.skip}</a>
+		<header class="site-header">
+			<div class="container header-inner">
+				<a class="brand" href={pageUrl(lang, 'home')}>
+					<Image src={appIcon} alt="" width={36} height={36} densities={[2, 3]} />
+					<span>Patilog</span>
+				</a>
+				<nav class="header-nav" aria-label={t.mainNav}>
+					{navPages.map((p) => (
+						<a href={pageUrl(lang, p)} aria-current={p === page ? 'page' : undefined}>{t[p]}</a>
+					))}
+				</nav>
+				<button
+					class="theme-toggle"
+					type="button"
+					hidden
+					data-label={t.theme.label}
+					data-system={t.theme.system}
+					data-light={t.theme.light}
+					data-dark={t.theme.dark}
+				>
+					<Icon name="lucide:sun-moon" class="theme-icon-system" aria-hidden="true" />
+					<Icon name="lucide:sun" class="theme-icon-light" aria-hidden="true" />
+					<Icon name="lucide:moon" class="theme-icon-dark" aria-hidden="true" />
+				</button>
+				<a class="lang-switch" href={pageUrl(otherLang, page)} hreflang={otherLang} lang={otherLang}>
+					<Icon name="lucide:languages" aria-hidden="true" />
+					<span>{t.otherLang}</span>
+				</a>
+			</div>
+		</header>
+
+		<main id="main">
+			<slot />
+		</main>
+
+		<footer class="site-footer">
+			<div class="container footer-inner">
+				<div class="footer-brand">
+					<strong>Patilog</strong>
+					<span>{t.tagline}</span>
+				</div>
+				<ul class="footer-links">
+					{(['home', 'privacy', 'support'] as const).map((p) => (
+						<li><a href={pageUrl(lang, p)} aria-current={p === page ? 'page' : undefined}>{t[p]}</a></li>
+					))}
+					{SOURCE_URL && <li><a href={SOURCE_URL}>{t.sourceCode}</a></li>}
+					<li><a href={pageUrl(otherLang, page)} hreflang={otherLang} lang={otherLang}>{t.otherLang}</a></li>
+				</ul>
+			</div>
+		</footer>
+
+		<!-- Theme toggle: cycles system -> light -> dark. Without JavaScript the button stays hidden and the site follows the system setting. -->
+		<script is:inline>
+			(() => {
+				const button = document.querySelector('.theme-toggle');
+				if (!button) return;
+				const order = ['system', 'light', 'dark'];
+				const root = document.documentElement;
+				const render = (mode) => {
+					button.dataset.mode = mode;
+					button.setAttribute('aria-label', `${button.dataset.label}: ${button.dataset[mode]}`);
+					button.title = button.getAttribute('aria-label');
+				};
+				render(root.dataset.theme || 'system');
+				button.hidden = false;
+				button.addEventListener('click', () => {
+					const next = order[(order.indexOf(button.dataset.mode) + 1) % order.length];
+					if (next === 'system') delete root.dataset.theme;
+					else root.dataset.theme = next;
+					try {
+						if (next === 'system') localStorage.removeItem('patilog-theme');
+						else localStorage.setItem('patilog-theme', next);
+					} catch {}
+					render(next);
+				});
+			})();
+		</script>
+	</body>
+</html>
