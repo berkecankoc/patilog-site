@@ -1,0 +1,36 @@
+name: Check
+
+# Runs the same checks as the deploy (plus astro check) on pull requests, e.g. Dependabot updates,
+# so a breaking change shows up on the PR instead of only after merging. Nothing is deployed here.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# A new push to the same PR cancels the previous, now outdated run.
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+# Actions are pinned to full commit SHAs (tags can be moved); Dependabot keeps the pins up to date.
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Type and template check
+        run: npm run check
+      - name: Build
+        run: npm run build
+      - name: Post-build checks
+        run: npm test
