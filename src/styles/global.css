@@ -141,10 +141,6 @@ ul {
 
 /* Header */
 
-.site-header {
-	border-top: 4px solid var(--accent);
-}
-
 .header-inner {
 	display: flex;
 	flex-wrap: wrap;
@@ -594,13 +590,19 @@ ul {
 	list-style: none;
 }
 
+/* Same scheme as the header nav: text-colored links, the current page in the link color. */
 .footer-links a {
 	display: inline-block;
 	padding-block: 0.25rem;
+	color: var(--text);
+}
+
+.footer-links a:hover,
+.footer-links a[aria-current='page'] {
+	color: var(--link);
 }
 
 .footer-links a[aria-current='page'] {
-	color: var(--text);
 	font-weight: 700;
 	text-decoration: none;
 }
