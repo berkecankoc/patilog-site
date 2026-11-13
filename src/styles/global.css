@@ -748,6 +748,32 @@ a.store-button.secondary:hover {
 	color: var(--link);
 }
 
+.hero-shot {
+	width: 100%;
+	height: auto;
+	margin-top: 1.5rem;
+}
+
+/* Show the screenshot matching the theme; same conditions as the dark tokens at the top. */
+.hero-shot-dark,
+:root[data-theme='dark'] .hero-shot-light {
+	display: none;
+}
+
+:root[data-theme='dark'] .hero-shot-dark {
+	display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) .hero-shot-light {
+		display: none;
+	}
+
+	:root:not([data-theme='light']) .hero-shot-dark {
+		display: block;
+	}
+}
+
 .section {
 	margin-top: 3.5rem;
 }

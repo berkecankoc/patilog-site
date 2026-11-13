@@ -1,6 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import heroEnDark from '../assets/screenshots/hero-en-dark.png';
+import heroEnLight from '../assets/screenshots/hero-en-light.png';
+import heroTrDark from '../assets/screenshots/hero-tr-dark.png';
+import heroTrLight from '../assets/screenshots/hero-tr-light.png';
 import StoreBadges from './StoreBadges.astro';
 import { type Lang, SOURCE_URL, pageUrl, ui } from '../site';
 
@@ -25,6 +30,11 @@ const content = {
 			{ icon: 'lucide:languages', text: 'English & Turkish' },
 			{ icon: 'lucide:sun-moon', text: 'Light & dark theme' },
 		],
+		screenshots: {
+			light: heroEnLight,
+			dark: heroEnDark,
+			alt: 'Patilog screens: the pet list, a cat’s weight chart and a dog’s medication doses for today',
+		},
 		featuresTitle: 'What you can track',
 		features: [
 			{ icon: 'lucide:paw-print', title: 'Pet profiles', text: 'Save each pet’s name, species, sex, photo and other details.' },
@@ -65,6 +75,11 @@ const content = {
 			{ icon: 'lucide:languages', text: 'Türkçe ve İngilizce' },
 			{ icon: 'lucide:sun-moon', text: 'Açık ve koyu tema' },
 		],
+		screenshots: {
+			light: heroTrLight,
+			dark: heroTrDark,
+			alt: 'Patilog ekranları: evcil hayvan listesi, bir kedinin kilo grafiği ve bir köpeğin bugünkü ilaç dozları',
+		},
 		featuresTitle: 'Neleri takip edebilirsiniz?',
 		features: [
 			{ icon: 'lucide:paw-print', title: 'Hayvan profilleri', text: 'Her hayvanınızın adını, türünü, cinsiyetini, fotoğrafını ve diğer bilgilerini kaydedin.' },
@@ -106,7 +121,19 @@ const content = {
 			))}
 			{SOURCE_URL && <li><Icon name="lucide:code" aria-hidden="true" />{content.openSource.badge}</li>}
 		</ul>
-		<!-- App screenshots go here once they are provided. -->
+		{/* Both theme variants are rendered; global.css hides one with display: none, which also keeps
+		    it out of the accessibility tree. Astro's default loading="lazy" means browsers don't fetch
+		    the hidden one unless the visitor switches theme. */}
+		{(['light', 'dark'] as const).map((theme) => (
+			<Image
+				class={`hero-shot hero-shot-${theme}`}
+				src={content.screenshots[theme]}
+				alt={content.screenshots.alt}
+				format="webp"
+				widths={[480, 720, 984, 1440]}
+				sizes="(min-width: 64rem) 61.5rem, calc(100vw - 2.5rem)"
+			/>
+		))}
 	</section>
 
 	<section class="container section" aria-labelledby="features-title">
