@@ -32,7 +32,12 @@ for (const route of REQUIRED) {
 	if (!/<meta name="description" content="[^"]+"/.test(html)) errors.push(`${BASE}${route}: missing meta description`);
 }
 
-const isExternal = (ref) => /^([a-z]+:)?\/\//i.test(ref);
+// GitHub Pages shows this file for any missing URL; without it visitors get GitHub's generic 404.
+const notFound = join(DIST, '404.html');
+if (!existsSync(notFound)) errors.push('missing 404.html');
+else if (!readFileSync(notFound, 'utf8').includes('<meta name="robots" content="noindex"')) errors.push('404.html: missing noindex');
+
+const isExternal =(ref) => /^([a-z]+:)?\/\//i.test(ref);
 
 // Resolves an internal reference to a file in dist/, or returns null.
 function targetFile(ref, fromFile) {

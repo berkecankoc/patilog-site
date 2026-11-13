@@ -1,0 +1,17 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { pageUrl } from '../site';
+
+// GitHub Pages serves this one file for every missing URL, including those under /tr/.
+// It stays a short English page; the header language switch leads Turkish visitors to /tr/.
+---
+
+<BaseLayout lang="en" title="Page not found – Patilog" description="The page you’re looking for doesn’t exist." noindex>
+	<section class="hero container">
+		<p class="not-found-code" aria-hidden="true">404</p>
+		<h1>Page not found</h1>
+		<p class="hero-intro">The page you’re looking for doesn’t exist. Check the address or go to the home page.</p>
+		<a class="button" href={pageUrl('en', 'home')}>Go to the home page<Icon name="lucide:arrow-right" aria-hidden="true" /></a>
+	</section>
+</BaseLayout>

@@ -8,14 +8,17 @@ import { type Lang, type Page, SOURCE_URL, pageUrl, ui } from '../site';
 
 interface Props {
 	lang: Lang;
-	page: Page;
+	// Omitted on the 404 page, which has no counterpart page; the language switch then goes home.
+	page?: Page;
 	title: string;
 	description: string;
+	noindex?: boolean;
 }
 
-const { lang, page, title, description } = Astro.props;
+const { lang, page, title, description, noindex = false } = Astro.props;
 const t = ui[lang];
 const otherLang: Lang = lang === 'en' ? 'tr' : 'en';
+const otherLangUrl = pageUrl(otherLang, page ?? 'home');
 const base = import.meta.env.BASE_URL;
 const navPages = ['privacy', 'support'] as const;
 ---
@@ -27,6 +30,7 @@ const navPages = ['privacy', 'support'] as const;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex" />}
 		<link rel="icon" href={`${base}favicon-32.png`} sizes="32x32" type="image/png" />
 		<link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
 		<!-- Applies a saved theme before first paint. The choice lives only in this browser's localStorage. -->
@@ -66,7 +70,7 @@ const navPages = ['privacy', 'support'] as const;
 					<Icon name="lucide:sun" class="theme-icon-light" aria-hidden="true" />
 					<Icon name="lucide:moon" class="theme-icon-dark" aria-hidden="true" />
 				</button>
-				<a class="lang-switch" href={pageUrl(otherLang, page)} hreflang={otherLang} lang={otherLang} aria-label={t.otherLang}>
+				<a class="lang-switch" href={otherLangUrl} hreflang={otherLang} lang={otherLang} aria-label={t.otherLang}>
 					<Icon name="lucide:languages" aria-hidden="true" />
 					<span class="lang-full">{t.otherLang}</span>
 					<span class="lang-short" aria-hidden="true">{otherLang.toUpperCase()}</span>
@@ -106,7 +110,7 @@ const navPages = ['privacy', 'support'] as const;
 						<li><a href={pageUrl(lang, p)} aria-current={p === page ? 'page' : undefined}>{t[p]}</a></li>
 					))}
 					{SOURCE_URL && <li><a href={SOURCE_URL}>{t.sourceCode}</a></li>}
-					<li><a href={pageUrl(otherLang, page)} hreflang={otherLang} lang={otherLang}>{t.otherLang}</a></li>
+					<li><a href={otherLangUrl} hreflang={otherLang} lang={otherLang}>{t.otherLang}</a></li>
 				</ul>
 			</div>
 		</footer>
