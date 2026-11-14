@@ -43,7 +43,7 @@ export const ui = {
 		tagline: 'Offline pet care tracker',
 		sourceCode: 'Source code',
 		sourceOnGithub: 'Source code on GitHub',
-		theme: { label: 'Theme', system: 'System', light: 'Light', dark: 'Dark' },
+		theme: { label: 'Theme', light: 'Light', dark: 'Dark' },
 		trademarks:
 			'Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.',
 	},
@@ -58,7 +58,7 @@ export const ui = {
 		tagline: 'Çevrimdışı evcil hayvan bakım takibi',
 		sourceCode: 'Kaynak kodu',
 		sourceOnGithub: 'GitHub’daki kaynak kodu',
-		theme: { label: 'Tema', system: 'Sistem', light: 'Açık', dark: 'Koyu' },
+		theme: { label: 'Tema', light: 'Açık', dark: 'Koyu' },
 		trademarks:
 			'Apple ve Apple logosu, Apple Inc.’in ABD’de ve diğer ülkelerde tescilli ticari markalarıdır. App Store, Apple Inc.’in hizmet markasıdır. Google Play ve Google Play logosu, Google LLC’nin ticari markalarıdır.',
 	},

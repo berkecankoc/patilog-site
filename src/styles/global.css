@@ -352,7 +352,6 @@ ul {
 	height: 1.125rem;
 }
 
-.theme-toggle[data-mode='system'] .theme-icon-system,
 .theme-toggle[data-mode='light'] .theme-icon-light,
 .theme-toggle[data-mode='dark'] .theme-icon-dark {
 	display: block;

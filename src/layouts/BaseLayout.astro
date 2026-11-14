@@ -62,11 +62,9 @@ const navPages = ['privacy', 'support'] as const;
 					type="button"
 					hidden
 					data-label={t.theme.label}
-					data-system={t.theme.system}
 					data-light={t.theme.light}
 					data-dark={t.theme.dark}
 				>
-					<Icon name="lucide:sun-moon" class="theme-icon-system" aria-hidden="true" />
 					<Icon name="lucide:sun" class="theme-icon-light" aria-hidden="true" />
 					<Icon name="lucide:moon" class="theme-icon-dark" aria-hidden="true" />
 				</button>
@@ -115,29 +113,33 @@ const navPages = ['privacy', 'support'] as const;
 			</div>
 		</footer>
 
-		<!-- Theme toggle: cycles system -> light -> dark. Without JavaScript the button stays hidden and the site follows the system setting. -->
+		<!-- Theme toggle: switches between light and dark. Until the visitor picks one, the site follows the system
+		     setting and the button shows the theme currently in effect, so every click visibly changes the theme.
+		     Without JavaScript the button stays hidden and the site follows the system setting. -->
 		<script is:inline>
 			(() => {
 				const button = document.querySelector('.theme-toggle');
 				if (!button) return;
-				const order = ['system', 'light', 'dark'];
 				const root = document.documentElement;
-				const render = (mode) => {
+				const systemDark = matchMedia('(prefers-color-scheme: dark)');
+				const current = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+				const render = () => {
+					const mode = current();
 					button.dataset.mode = mode;
 					button.setAttribute('aria-label', `${button.dataset.label}: ${button.dataset[mode]}`);
 					button.title = button.getAttribute('aria-label');
 				};
-				render(root.dataset.theme || 'system');
+				render();
+				// Keep the icon right if the system theme changes while no choice is saved.
+				systemDark.addEventListener('change', render);
 				button.hidden = false;
 				button.addEventListener('click', () => {
-					const next = order[(order.indexOf(button.dataset.mode) + 1) % order.length];
-					if (next === 'system') delete root.dataset.theme;
-					else root.dataset.theme = next;
+					const next = current() === 'dark' ? 'light' : 'dark';
+					root.dataset.theme = next;
 					try {
-						if (next === 'system') localStorage.removeItem('patilog-theme');
-						else localStorage.setItem('patilog-theme', next);
+						localStorage.setItem('patilog-theme', next);
 					} catch {}
-					render(next);
+					render();
 				});
 			})();
 		</script>
