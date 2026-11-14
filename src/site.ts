@@ -5,7 +5,7 @@ export const DEVELOPER_NAME = 'Berke Can Koç';
 export const CONTACT_EMAIL = 'berkecan.koc.contact@gmail.com';
 // The date this version of the privacy policy takes effect (its publication date).
 // Change it whenever the policy content changes.
-export const EFFECTIVE_DATE = '2026-11-11';
+export const EFFECTIVE_DATE = '2026-11-14';
 
 // Leave empty until the store listing is live; empty badges render as "coming soon".
 export const STORE_URLS = {
