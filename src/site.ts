@@ -9,7 +9,7 @@ export const EFFECTIVE_DATE = '2026-11-14';
 
 // Leave empty until the store listing is live; empty badges render as "coming soon".
 export const STORE_URLS = {
-	appStore: '',
+	appStore: 'https://apps.apple.com/app/patilog/id6834049616',
 	googlePlay: '',
 };
 
