@@ -25,6 +25,8 @@ jobs:
       - name: Install, build, check and upload site
         uses: withastro/action@a8b97df764791eb61fbf3338ef713b0e61ae05c5 # v6.1.4
         with:
+          # Same Node major as package.json engines and check.yml; the action's default would be 24.
+          node-version: 26
           # A failing check (missing store URL, external resource, broken link) stops the deploy.
           build-cmd: npm run build && npm test
 
