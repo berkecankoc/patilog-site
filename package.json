@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "@fontsource-variable/nunito": "^5.3.0",
-    "@iconify-json/lucide": "^1.2.155",
-    "@iconify-json/simple-icons": "^1.2.102",
-    "astro": "^7.4.12",
+    "@iconify-json/lucide": "^1.2.158",
+    "@iconify-json/simple-icons": "^1.2.103",
+    "astro": "^7.4.13",
     "astro-icon": "^1.2.0"
   },
   "devDependencies": {
